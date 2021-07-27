@@ -1,0 +1,19 @@
+a. Cuando una clase contiene un metodo abstracto tiene que declararse abstracta.
+	Verdadero. No es posible tener metodos abstractos en clases no abstractas
+	De esta forma se evita que haya métodos que no se puedan ejecutar dentro de clases concretas.
+	
+b. Todos los metodos de una clase abstracta tienen que ser abstractos
+	Falso, es posible tener metodos no abstractos en clases abstractas. 
+	
+c. Las clases abstractas no pueden tener metodos privados (no se podrian implementar) ni tampoco estaticos.
+	Verdadero. siempre que dichos metodos sean abstractos al igual que la clase.
+	
+d. Una clase abstracta tiene que derivarse obligatoriamente.
+	Verdadero. Las clases abstractas no pueden instanciarse por lo cual solo pueden derivarse
+	
+e. Se puede hacer un new de una clase abstracta.
+	Falso. No es posible instaciar una clase abstracta.
+	
+f. La principal diferencia entre interface y abstract es que un interface proporciona un mecanismo de encapsulación 
+   de los protocolos de los métodos sin forzar al usuario a utilizar la herencia.
+	Verdadero. 
