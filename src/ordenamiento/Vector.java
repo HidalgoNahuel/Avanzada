@@ -103,40 +103,53 @@ public class Vector {
 		}
 	}
 	
-	public void mergeSort(int init, int n) {
-		int n1, n2;
-		if(n>1) {
-			n1 = n /2;
-			n2 = n/2;
-			mergeSort(init, n1);
-			mergeSort(init+n1, n2);
-			merge(init, n1,n2);
+	public void mergeSort(int l, int r) {
+		if(l<r) {
+			int m = l+(r-l)/2;
+			mergeSort(l, m);
+			mergeSort(m+1, r);
+			merge(l, m,r);
 		}
 	}
 	
-	public void merge(int init, int n1, int n2) {
-		double[] buff = new double[n1+n2];
-		int tmp = 0;
-		int tmp1 = 0;
-		int tmp2 = 0;
+	public void merge(int l, int m, int r) {
+		int n1 = m-l+1;
+		int n2 = r-m;
 		
-		while((tmp1 < n1) && (tmp2 < n2)) {
-			if(vector[init + tmp1] < vector[init + n1 + tmp2])
-				buff[tmp++] = vector[init + (tmp1++)];
-			else
-				buff[tmp++] = vector[init + n1 + (tmp2++)];
+		double L[] = new double[n1];
+		double R[] = new double[n2];
+		
+		for (int i = 0; i < L.length; i++) {
+			L[i] = vector[l+i];
 		}
 		
-		while(tmp1 < n1) {
-			buff[tmp++] = vector[init + (tmp1++)];
+		for (int i = 0; i < R.length; i++) {
+			R[i] = vector[m+1+i];
+		}
+		int i = 0, j = 0, k = l;
+		
+		while(i < n1 && j < n2) {
+			if(L[i]<=R[j]) {
+				vector[k] = L[i];
+				i++;
+			}
+			else {
+				vector[k] = R[j];
+				j++;
+			}
+			k++;
+				
 		}
 		
-		while(tmp2 < n2) {
-			buff[tmp++] = vector[init + n1 + (tmp2++)];
+		while(i<n1) {
+			vector[k] = L[i];
+			i++;
+			k++;
 		}
-		
-		for (int i = 0; i < buff.length; i++) {
-			vector[init +i] = buff[i];
+		while(j<n2) {
+			vector[k] = R[j];
+			j++;
+			k++;
 		}
 	}
 

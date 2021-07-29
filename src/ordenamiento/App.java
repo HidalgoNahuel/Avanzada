@@ -8,7 +8,7 @@ public class App {
 		double [] vec2 = {50, 26, 7, 9, 15, 27};	
 		double [] vec3 = {50, 26, 7, 9, 15, 27};	
 		double [] vec4 = {50, 26, 7, 9, 15, 27};	
-		double [] vec5 = { 23, 31, 1, 21, 36, 72};	
+		double [] vec5 = {50, 26, 7, 9, 15, 27};	
 		double [] vec6 = {50, 26, 7, 9, 15, 27};	
 		
 		Vector vector = new Vector(vec);
