@@ -1,10 +1,12 @@
-package graph;
+package graph.directed;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.Vector;
+
+import graph.GraphException;
 
 public class Digraph {
 
@@ -46,7 +48,12 @@ public class Digraph {
 			if (E < 0)
 				throw new IllegalArgumentException("Numero de aristas no debe ser negativo");
 			for (int i = 0; i < E; i++) {
-				addEdge(in.nextInt(), in.nextInt());
+				int v = in.nextInt();
+				int w = in.nextInt();
+				
+				validateVertex(v);
+				validateVertex(w);
+				addEdge(v, w);
 			}
 		}catch(NoSuchElementException e) {
 			e.printStackTrace();

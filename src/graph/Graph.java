@@ -40,11 +40,16 @@ public class Graph {
 				adj.add(new LinkedList<Integer>());
 			}
 		
-			this.E = in.nextInt();
+			int E = in.nextInt();
 			if(E < 0)
 				throw new GraphException(E);
+			
 			for(int i = 0; i < E; i++) {
-				addEdge(in.nextInt(), in.nextInt());
+				int v = in.nextInt();
+				int w = in.nextInt();
+				validateVertex(v);
+				validateVertex(w);
+				addEdge(v, w);
 			}
 		} catch(NoSuchElementException e) {
 			throw new IllegalArgumentException("Formato de entrada No valido", e);
@@ -79,9 +84,18 @@ public class Graph {
 				adj.get(v).add(w);
 		}
 	}
+	
+	public int getV() {
+		return V;
+	}
+	
+	public LinkedList<Integer> getAdj(int v) {
+		validateVertex(v);
+		return adj.get(v);
+	}
 
 	private void validateVertex(int v) {
-		if(v < 0 || v >= V-1) {
+		if(v < 0 || v >= V) {
 			throw new GraphException(v);
 		}
 	}
@@ -91,7 +105,7 @@ public class Graph {
 		validateVertex(w);
 		
 		adj.get(v).add(w);
-		grado[w]++;
+		adj.get(w).add(v);
 		E++;
 	}
 
