@@ -10,7 +10,7 @@ public class App {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		Graph g = new Graph(new Scanner(new File("src/graph/mediumG.txt")));
+		Graph g = new Graph(new Scanner(new File("src/graph/tiny.txt")));
 		int s = 1;
 		DepthFirstSearch srch = new DepthFirstSearch(g, s);
 		
