@@ -26,5 +26,6 @@ public class App {
 		else
 			System.out.println("Connected");
 		
+		System.out.println("Max vertex Degreee: "+srch.maxDegree() + " vertex: " + srch.maxDegreePos);
 	}
 }
