@@ -16,13 +16,11 @@ public class App {
 		Cycle c = new Cycle(g, s);
 		
 		for (int v = 0; v < g.getV(); v++) {
-			if(c.cycle(v)) {
+			if(c.hasCycle()) {
 				System.out.println(v + " has cycle");
 			}
 			else
 				System.out.println(v + " has not cycle");
 		}
-
 	}
-
 }

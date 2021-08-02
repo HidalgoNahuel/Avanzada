@@ -1,46 +1,48 @@
 package graph.dfs.cycle;
 
+import java.util.Stack;
+
 import graph.Graph;
 import graph.GraphException;
 
 public class Cycle {
 
-	public boolean []visited;
-	private boolean []cycle;
-	
-	public Cycle(Graph g, int v) {
-		if(g == null)
+	private boolean[] visited;
+	private boolean cycle;
+	private Stack<Integer> stack;
+	private int []edgeTo;
+
+	public Cycle(Graph g, int s) {
+		if (g == null)
 			throw new GraphException(g);
-		
-		cycle = new boolean[g.getV()];
+
 		visited = new boolean[g.getV()];
-		
-		validateVertex(v);
-		
-		dfs(g, v);
+		edgeTo = new int[g.getV()];
+		dfs(g, s);
 	}
-	
-	private void dfs(Graph g, int v) {
-		visited[v] = true;
-		for(int w : g.getAdj(v)) {
-			count ++;
-			if(!visited[w])
-				dfs(g, w);
-			else
-				cycle[w] = true;
+
+	public void dfs(Graph g, int s) {
+
+		stack = new Stack<Integer>();
+		stack.push(s);
+		
+		while(!stack.isEmpty()) {
+			int v = stack.pop();
+			
+			visited[v] = true;
+			for(int w : g.getAdj(v))
+				if(!visited[w] && !stack.contains(w)) {
+					stack.push(w);
+					edgeTo[w] = v;
+				}
+				else if(edgeTo[v] != w)
+					cycle = true;
 		}
+		
 	}
 	
-	private void validateVertex(int v) {
-		if(v < 0 || v >= visited.length)
-			throw new GraphException(v);
+	public boolean hasCycle() {
+		return cycle;
 	}
 	
-	public boolean cycle(int v) {
-		return cycle[v];
-	}
-	
-	public boolean isVisited(int v) {
-		return visited[v];
-	}
 }
