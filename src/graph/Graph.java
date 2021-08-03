@@ -12,6 +12,7 @@ public class Graph {
 	private int E;
 	private Vector<LinkedList<Integer>>adj;
 	private int[] grado;
+	private int maxDegreePos;
 	
 	public Graph(int V) {
 		if(V < 0) 
@@ -107,6 +108,27 @@ public class Graph {
 		adj.get(v).add(w);
 		adj.get(w).add(v);
 		E++;
+		grado[v]++;
+		grado[w]++;
+	}
+	
+	public int degree(int v) {
+		return grado[v];
+	}
+	
+	public int maxDegree() {
+		int mayor = 0;
+		for (int v = 0; v < grado.length; v++) {
+			if(grado[v] > mayor) {
+				mayor = grado[v];
+				maxDegreePos = v;
+			}
+		}
+		return mayor;
+	}
+	
+	public int maxDegreeVertex() {
+		return maxDegreePos;
 	}
 
 }

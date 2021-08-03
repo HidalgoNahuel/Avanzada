@@ -21,8 +21,7 @@ public class MazeSolver {
 	
 	private void explore(Maze maze, int x, int y) {
 		visited[x][y] = true;
-		System.out.printf("[%d][%d]\n", x, y);
-		//maze.moveBall(x, y);
+		maze.moveBall(x, y);
 				
 		if(x == maze.n() && y == maze.n())
 			solved = true;

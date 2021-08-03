@@ -2,6 +2,8 @@ package graph;
 
 import java.util.Scanner;
 
+import graph.directed.Digraph;
+
 public class GraphException extends RuntimeException{
 
 	private static final long serialVersionUID = -8434650095866525824L;
@@ -21,5 +23,9 @@ public class GraphException extends RuntimeException{
 		if(in == null) {
 			throw new IllegalArgumentException("Argumento nulo");
 		}
+	}
+	
+	public GraphException(Digraph g) {
+		throw new IllegalArgumentException("Grafo nulo");
 	}
 }

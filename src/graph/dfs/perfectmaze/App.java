@@ -3,9 +3,9 @@ package graph.dfs.perfectmaze;
 public class App {
 
 	public static void main(String[] args) {
-		Maze m = new Maze(125);
+		Maze m = new Maze(150);
 		m.draw();
-		MazeSolver ms = new MazeSolver(m);
+		new MazeSolver(m);
 	}
 
 }

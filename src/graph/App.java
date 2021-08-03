@@ -4,18 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import graph.directed.Digraph;
-
 public class App {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException{
 		
-		Digraph dg;
-		try {
-			dg = new Digraph(new Scanner(new File("src/graph/mediumG.txt")));
-			System.out.println(dg);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		Graph g = new Graph(new Scanner(new File("src/graph/tiny.txt")));
+		
+		System.out.println("Max vertex Degreee: "+g.maxDegree() + " vertex: " + g.maxDegreeVertex());
 	}
 }

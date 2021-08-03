@@ -2,15 +2,17 @@ package graph.dfs.perfectmaze;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
-public class Maze {
+class Maze {
 
 	private int n;
 	private boolean[][] north;
@@ -19,16 +21,14 @@ public class Maze {
 	private boolean[][] west;
 	private boolean[][] visited;
 
-	private boolean done = false;
-
-	private Panel panel;
 	private static int esc;
+	private Ball ball;
 
 	public Maze(int n) {
-		
-		esc = 5 + 100/n;
-		panel = new Panel();
-		
+
+		esc = 5 + 100 / n;
+		ball = new Ball(n);
+
 		this.n = n;
 		init();
 		generate(1, 1);
@@ -95,40 +95,48 @@ public class Maze {
 			}
 		}
 	}
-	
+
 	public int n() {
 		return n;
 	}
-	
+
 	public boolean northWall(int x, int y) {
 		return north[x][y];
 	}
-	
+
 	public boolean southWall(int x, int y) {
 		return south[x][y];
 	}
-	
+
 	public boolean eastWall(int x, int y) {
 		return east[x][y];
 	}
-	
+
 	public boolean westWall(int x, int y) {
 		return west[x][y];
 	}
-	
+
 	public void moveBall(int x, int y) {
-		panel.moveBall(x, y);
+		ball.moveBall(x, y);
 	}
 
 	public void draw() {
 
-		SwingUtilities.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException ex) {
+				}
+				
 				JFrame frame = new JFrame("Maze");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.add(panel);
-				frame.setSize(frame.getComponent(0).getPreferredSize());
+				frame.getContentPane().setLayout(null);
+				frame.getContentPane().add(ball);
+				frame.getContentPane().add(new Panel());
+				frame.setSize((n + 2) * esc, (n + 2) * esc + 30);
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
@@ -139,39 +147,69 @@ public class Maze {
 
 		private static final long serialVersionUID = 5478931164695870842L;
 
+		public Panel() {
+			this.setBounds(0, 0, (n + 2) * esc, (n + 2) * esc + 30);
+		}
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponents(g);
-			Graphics2D g2D = (Graphics2D)g;
-			
-			g2D.setColor(Color.blue);
-			g2D.fillOval(esc, esc, esc, esc);
-			
+			Graphics2D g2D = (Graphics2D) g;
+
 			g2D.setColor(Color.black);
-			for(int x = 1; x <= n; x++) {
-				for(int y = 1; y <=n; y++) {
-					if(south[x][y])
-						g2D.drawLine(x*esc, y*esc, (x+1)*esc, y*esc);
-					if(north[x][y])
-						g2D.drawLine(x*esc, (y+1)*esc, (x+1)*esc, (y+1)*esc);
-					if(east[x][y])
-						g2D.drawLine((x+1)*esc, y*esc, (x+1)*esc, (y+1)*esc);
-					if(west[x][y])
-						g2D.drawLine(x*esc, y*esc, x*esc, (y+1)*esc);
+			for (int x = 1; x <= n; x++) {
+				for (int y = 1; y <= n; y++) {
+					if (south[x][y])
+						g2D.drawLine(x * esc, y * esc, (x + 1) * esc, y * esc);
+					if (north[x][y])
+						g2D.drawLine(x * esc, (y + 1) * esc, (x + 1) * esc, (y + 1) * esc);
+					if (east[x][y])
+						g2D.drawLine((x + 1) * esc, y * esc, (x + 1) * esc, (y + 1) * esc);
+					if (west[x][y])
+						g2D.drawLine(x * esc, y * esc, x * esc, (y + 1) * esc);
 				}
 			}
+		}
+
+		@Override
+		public Dimension getPreferredSize() {
+			return new Dimension((n + 2) * esc, (n + 2) * esc + 30);
+		}
+	}
+
+	public class Ball extends JPanel {
+
+		private static final long serialVersionUID = -4934950428767393343L;
+		
+		private int x = 1;
+		private int y = 1;
+
+		public Ball(int n) {
+			this.setSize((n + 2) * esc, (n + 2) * esc + 30);
+			this.setOpaque(false);
+		}
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+
+			g.setColor(Color.red);
+			g.fillOval(this.x*esc, this.y*esc, esc, esc);
 		}
 		
 		@Override
 		public Dimension getPreferredSize() {
-			return new Dimension((n+2)*esc, (n+2)*esc+30);
-		}
-		
-		public void moveBall(int x, int y) {
-			Graphics2D g2D = (Graphics2D) this.getGraphics();
-			g2D.fillOval(x*esc, y*esc, esc, esc);
+			return new Dimension((n + 2) * esc, (n + 2) * esc + 30);
 		}
 
+		public void moveBall(int x, int y) {
+			this.x = x;
+			this.y = y;
+			this.repaint();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
