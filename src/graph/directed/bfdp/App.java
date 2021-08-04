@@ -16,7 +16,7 @@ public class App {
 
 		for(int v = 0; v < dg.getV(); v++) {
 			if(bfdp.hasPathTo(v)) {
-				System.out.printf("%d to %d: ", s, v);
+				System.out.printf("%d to %d (Distance = %d): ", s, v, bfdp.distTo(v));
 				for(int w : bfdp.pathTo(v))
 					System.out.printf(w + " ");
 				System.out.println();

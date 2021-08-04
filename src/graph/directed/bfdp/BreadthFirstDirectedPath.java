@@ -31,11 +31,12 @@ public class BreadthFirstDirectedPath {
 	}
 	
 	private void bfs(Digraph g, int s) {
+		visited[s] = true;
+		distTo[s] = 0;
 		q.enqueue(s);
 		
 		while(!q.isEmpty()) {
 			int v = q.dequeue();
-			visited[v] = true;
 			for(int w : g.getAdj(v)) {
 				if(!visited[w]) {
 					visited[w] = true;
@@ -60,11 +61,15 @@ public class BreadthFirstDirectedPath {
 	public Iterable<Integer> pathTo(int v){
 		LinkedList<Integer> path = new LinkedList<Integer>();
 		
-		for(int x = v; x != s; x = edgeTo[x])
+		for(int x = v; distTo[x] != 0; x = edgeTo[x])
 			path.add(x);
 		path.add(s);
 		
 		Collections.reverse(path);
 		return path;
+	}
+	
+	public int distTo(int v) {
+		return distTo[v];
 	}
 }

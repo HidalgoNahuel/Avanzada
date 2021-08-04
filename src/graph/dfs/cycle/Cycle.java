@@ -33,16 +33,18 @@ public class Cycle {
 				return;
 
 			int v = stack.pop();
-			visited[v] = true;
-			for (int w : g.getAdj(v)) {
-				if (!visited[w]) {
-					edgeTo[w] = v;
-					stack.push(w);
-				} else if (edgeTo[v] != w) {
-					for (int x = v; x != w; x = edgeTo[x]) {
-						cycle.push(x);
+			if(!visited[v]) {
+				visited[v] = true;
+				for (int w : g.getAdj(v)) {
+					if (!visited[w]) {
+						edgeTo[w] = v;
+						stack.push(w);
+					} else if (edgeTo[v] != w) {
+						for (int x = v; x != w; x = edgeTo[x]) {
+							cycle.push(x);
+						}
+						cycle.push(w);
 					}
-					cycle.push(w);
 				}
 			}
 		}

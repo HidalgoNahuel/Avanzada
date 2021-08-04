@@ -20,15 +20,16 @@ public class BreadthFirstSearch {
 		marked = new boolean[g.getV()];
 		distTo = new int[g.getV()];
 		edgeTo = new int[g.getV()];
+		for (int v = 0; v < g.getV(); v++) {
+			distTo[v] = INFINITY;
+		}
+
 		validateVertex(s);
 		bfs(g, s);
 	}
 
 	private void bfs(Graph g, int s) {
 		Queue<Integer> q = new Queue<Integer>();
-		for (int v = 0; v < g.getV(); v++) {
-			distTo[v] = INFINITY;
-		}
 		q.enqueue(s);
 		distTo[s] = 0;
 		marked[s] = true;

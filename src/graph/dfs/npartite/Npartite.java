@@ -36,14 +36,18 @@ public class Npartite {
 		
 		stack.push(s);
 		partitions.get(n).add(s);
+		
 		while(!stack.isEmpty()) {
 			int v = stack.pop();
-			visited[v] = true;
-			for(int w : g.getAdj(v)) {
-				if(!visited[w]) {
-					visited[w] = true;
-					stack.push(w);
-					partitions.get(n).add(w);
+		
+			if(!visited[v]) {
+				visited[v] = true;
+				for(int w : g.getAdj(v)) {
+					if(!visited[w]) {
+						visited[w] = true;
+						stack.push(w);
+						partitions.get(n).add(w);
+					}
 				}
 			}
 		}

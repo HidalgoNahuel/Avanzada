@@ -24,11 +24,13 @@ public class DirectedDFS {
 		stack.push(s);
 		while(!stack.isEmpty()) {
 			int v = stack.pop();
-			visited[v] = true;
-			for(int w : g.getAdj(v)) {
-				if(!visited[w]) {
-					count++;
-					stack.push(w);
+			if(!visited[v]) {
+				visited[v] = true;
+				for(int w : g.getAdj(v)) {
+					if(!visited[w]) {
+						count++;
+						stack.push(w);
+					}
 				}
 			}
 		}
