@@ -35,10 +35,17 @@ public class DirectedDFS {
 	}
 	
 	public boolean isVisited(int v) {
+		validateVertex(v);
 		return visited[v];
+	}
+	
+	public void validateVertex(int v) {
+		if(v < 0 || v >= visited.length)
+			throw new GraphException(v);
 	}
 	
 	public int count() {
 		return count;
 	}
+	
 }
