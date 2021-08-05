@@ -1,5 +1,6 @@
 package graph.directed.cycle;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -51,10 +52,11 @@ public class DirectedCycle {
 							cycle.add(x);
 						cycle.add(w);
 						cycle.add(v);
+						Collections.reverse(cycle);
 					}
 				}
 				if (g.getAdj(v).size() == 0) {
-					onStack.removeAll(onStack);
+					onStack.remove(onStack.indexOf(v));
 				}
 			}
 		}
