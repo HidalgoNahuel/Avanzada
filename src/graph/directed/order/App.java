@@ -14,21 +14,21 @@ public class App {
 		DepthFirstOrder dfo = new DepthFirstOrder(dg);
 		
 		System.out.printf("Preorder:  ");
-		/*for (int v : dfs.pre()) {
+		for (int v : dfo.pre()) {
 			System.out.printf(v + " ");
-		}*/
+		}
 		System.out.println();
 		
 		System.out.printf("Postorder: ");
-		/*for (int v : dfs.post()) {
+		for (int v : dfo.post()) {
 			System.out.printf(v + " ");
-		}*/
+		}
 		System.out.println();
 		
 		System.out.printf("Reverse postorder: ");
-		/*for (int v : dfs.reversePost()) {
+		for (int v : dfo.reverse()) {
 			System.out.printf(v + " ");
-		}*/
+		}
 		System.out.println();
 	}
 }

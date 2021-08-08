@@ -114,6 +114,10 @@ public class Digraph {
 		grado[v]++;
 	}
 	
+	public int degree(int v) {
+		return grado[v];
+	}
+	
 	public LinkedList<Integer> getAdj(int v){
 		return adj.get(v);
 	}

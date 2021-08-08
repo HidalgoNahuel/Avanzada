@@ -60,10 +60,55 @@ public class Queue<T> implements Iterable<T>{
 		
 		return aux;
 	}
+	
+	public boolean contains(T t) {
+		Node<T> curr = first;
+		while(curr != null) {
+			if(t == curr.info)
+				return true;
+			curr = curr.next;
+		}
+		return false;
+	}
+	
+	@Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (T item : this) {
+            s.append(item);
+            s.append(' ');
+        }
+        return s.toString();
+    } 
 
 	@Override
 	public Iterator<T> iterator() {
-		return null;
+		return new LinkedIterator(first);
+	}
+	
+	private class LinkedIterator implements Iterator<T>{
+		private Node<T> curr;
+		
+		public LinkedIterator(Node<T> first){
+			curr = first;
+		}
+		
+		public boolean hasNext() {
+			return curr != null;
+		}
+		
+		public void remove() {
+			throw new UnsupportedOperationException("Cant remove");
+		}
+		
+		public T next() {
+			if(!hasNext()) {
+				throw new NoSuchElementException("There is no next");
+			}
+			T t = curr.info;
+			curr = curr.next;
+			return t;
+		}
 	}
 
 }
