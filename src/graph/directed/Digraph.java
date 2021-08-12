@@ -15,14 +15,17 @@ public class Digraph {
 	private final int V;
 	private int E;
 	private Vector<LinkedList<Integer>> adj;
-	private int[] grado;
+	private int[] inDegree;
+	private int[] outDegree;
 
 	public Digraph(int V) {
 		if (V < 0)
 			throw new GraphException(V);
 		this.V = V;
 		this.E = 0;
-		grado = new int[V];
+		inDegree = new int[V];
+		outDegree = new int[V];
+		
 		adj = new Vector<>(V);
 		for (int v = 0; v < V; v++) {
 			adj.add(new LinkedList<Integer>());
@@ -39,7 +42,9 @@ public class Digraph {
 		try {
 			if (V < 0)
 				throw new GraphException(V);
-			grado = new int[V];
+			inDegree = new int[V];
+			outDegree = new int[V];
+			
 			adj = new Vector<>(V);
 			for (int v = 0; v < V; v++) {
 				adj.add(new LinkedList<Integer>());
@@ -72,9 +77,12 @@ public class Digraph {
 		if (V < 0)
 			throw new GraphException(V);
 
-		grado = new int[V];
+		inDegree= new int[V];
+		outDegree= new int[V];
+		
 		for (int v = 0; v < V; v++) {
-			this.grado[v] = G.grado[v];
+			this.inDegree[v] = G.inDegree[v];
+			this.outDegree[v] = G.outDegree[v];
 		}
 
 		adj = new Vector<>(V);
@@ -111,11 +119,17 @@ public class Digraph {
 		validateVertex(v);
 		validateVertex(w);
 		adj.get(v).add(w);
-		grado[v]++;
+		outDegree[v] ++;
+		inDegree[w]++;
+		E++;
 	}
 	
-	public int degree(int v) {
-		return grado[v];
+	public int inDegree(int v) {
+		return inDegree[v];
+	}
+	
+	public int outDegree(int v) {
+		return outDegree[v];
 	}
 	
 	public LinkedList<Integer> getAdj(int v){

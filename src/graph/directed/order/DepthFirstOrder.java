@@ -1,6 +1,6 @@
 package graph.directed.order;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.Stack;
 
 import graph.GraphException;
@@ -12,8 +12,6 @@ public class DepthFirstOrder {
 	private boolean []visited;
 	
 	private Stack<Integer> stack;
-	private int []edgeTo;
-	private LinkedList<Integer> path;
 	
 	private Queue<Integer> preOrder;
 	private Queue<Integer> postOrder;
@@ -24,9 +22,6 @@ public class DepthFirstOrder {
 			throw new GraphException(g);
 		
 		visited = new boolean[g.getV()];
-		edgeTo = new int[g.getV()];
-
-		path = new LinkedList<Integer>();
 		stack = new Stack<Integer>();
 	
 		preOrder = new Queue<Integer>();
@@ -43,35 +38,26 @@ public class DepthFirstOrder {
 		stack.push(s);
 		
 		while(!stack.isEmpty()) {
-			int v = stack.pop();
+			int v = stack.peek();
 			
 			if(!preOrder.contains(v))
 				preOrder.enqueue(v);
 			
 			if(!visited[v]) {
 				visited[v] = true;
-				path.add(v);
 				for(int w : g.getAdj(v)) {
 					if(!visited[w]) {
 						stack.push(w);
-						edgeTo[w] = v;
 					}
-				}
-				if(g.getAdj(v).size() == 0) {
-					for(int x = v; g.degree(x) <= 1; x = edgeTo[x]) {
-						postOrder.enqueue(path.getLast());
-						reverse.add(0, path.removeLast());
-					}
-					if(path.isEmpty()) {
-						postOrder.enqueue(path.getLast());
-						reverse.push(path.removeLast());
-					}
-				}					
+				}				
 			}
-		}
-		while(!path.isEmpty()) {
-			postOrder.enqueue(path.getLast());
-			reverse.add(0, path.removeLast());
+			else {
+				int aux = stack.pop();
+				if(!reverse.contains(aux)) {
+					postOrder.enqueue(aux);
+					reverse.push(aux);
+				}
+			}
 		}
 	}
 	
@@ -84,6 +70,7 @@ public class DepthFirstOrder {
 	}
 	
 	public Iterable<Integer> reverse(){
+		Collections.reverse(reverse);
 		return reverse;
 	}
 }

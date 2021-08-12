@@ -23,7 +23,7 @@ public class DirectedDFS {
 	private void dfs(Digraph g, int s) {
 		stack.push(s);
 		while(!stack.isEmpty()) {
-			int v = stack.pop();
+			int v = stack.peek();
 			if(!visited[v]) {
 				visited[v] = true;
 				for(int w : g.getAdj(v)) {
@@ -33,6 +33,8 @@ public class DirectedDFS {
 					}
 				}
 			}
+			else
+				stack.pop();
 		}
 	}
 	

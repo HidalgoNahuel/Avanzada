@@ -9,7 +9,7 @@ import graph.directed.Digraph;
 public class App {
 
 	public static void main(String[] args) throws FileNotFoundException{
-		Digraph dg = new Digraph(new Scanner(new File("src/graph/directed/tinyDG.txt")));
+		Digraph dg = new Digraph(new Scanner(new File("src/graph/directed/tinyDAG.txt")));
 		DirectedCycle dc = new DirectedCycle(dg);
 		
 		if(dc.hasCycle()) {

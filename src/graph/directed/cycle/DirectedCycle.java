@@ -1,7 +1,6 @@
 package graph.directed.cycle;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Stack;
 
 import graph.GraphException;
@@ -11,8 +10,7 @@ public class DirectedCycle {
 
 	private boolean[] visited;
 	private int[] edgeTo;
-	private LinkedList<Integer> onStack;
-	private LinkedList<Integer> cycle;
+	private Stack<Integer> cycle;
 
 	private Stack<Integer> stack;
 
@@ -21,7 +19,6 @@ public class DirectedCycle {
 			throw new GraphException(g);
 
 		visited = new boolean[g.getV()];
-		onStack = new LinkedList<Integer>();
 		edgeTo = new int[g.getV()];
 
 		stack = new Stack<Integer>();
@@ -36,31 +33,27 @@ public class DirectedCycle {
 		stack.push(s);
 		while (!stack.isEmpty()) {
 
-			int v = stack.pop();
-			onStack.add(v);
+			int v = stack.peek();
 			if (!visited[v]) {
 				visited[v] = true;
 				for (int w : g.getAdj(v)) {
-					if (cycle != null)
+					if (cycle != null) {
 						return;
-					else if (!visited[w]) {
+					} else if (stack.contains(w) && visited[w]) {
+						cycle = new Stack<Integer>();
+						for (int x = v; x != w; x = edgeTo[x])
+							cycle.push(x);
+						cycle.push(w);
+						cycle.push(v);
+						Collections.reverse(cycle);
+					} else if (!visited[w]) {
 						edgeTo[w] = v;
 						stack.push(w);
-					} else if (onStack.contains(w)) {
-						cycle = new LinkedList<Integer>();
-						for (int x = v; x != w; x = edgeTo[x])
-							cycle.add(x);
-						cycle.add(w);
-						cycle.add(v);
-						Collections.reverse(cycle);
 					}
 				}
-				if (g.getAdj(v).size() == 0) {
-					onStack.remove(onStack.indexOf(v));
-				}
-			}
+			} else
+				stack.pop();
 		}
-		onStack.removeAll(onStack);
 	}
 
 	public Iterable<Integer> cycle() {
