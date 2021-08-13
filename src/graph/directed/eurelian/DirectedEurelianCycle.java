@@ -1,7 +1,10 @@
 package graph.directed.eurelian;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Scanner;
 import java.util.Stack;
 
 import graph.GraphException;
@@ -60,6 +63,19 @@ public class DirectedEurelianCycle {
 	public Iterable<Integer> cycle() {
 		Collections.reverse(cycle);
 		return cycle;
+	}
+	
+	public static void main(String[] args) throws FileNotFoundException{
+		Digraph g = new Digraph(new Scanner(new File("src/graph/directed/eurelianPath.txt")));
+		DirectedEurelianCycle dec = new DirectedEurelianCycle(g);
+		if(dec.hasCycle()) {
+			System.out.println("Eurelian cycle");
+			for(int v : dec.cycle()) {
+				System.out.printf(v + " ");
+			}
+		}
+		else
+			System.out.println("No Eurelian cycle");
 	}
 
 }

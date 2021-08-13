@@ -1,5 +1,7 @@
 package graph;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -129,6 +131,13 @@ public class Graph {
 	
 	public int maxDegreeVertex() {
 		return maxDegreePos;
+	}
+	
+	public static void main(String[] args) throws FileNotFoundException{
+		
+		Graph g = new Graph(new Scanner(new File("src/graph/tiny.txt")));
+		
+		System.out.println("Max vertex Degreee: "+g.maxDegree() + " vertex: " + g.maxDegreeVertex());
 	}
 
 }

@@ -3,6 +3,7 @@ package graph;
 import java.util.Scanner;
 
 import graph.directed.Digraph;
+import graph.edgeWeighted.EdgeWeightedGraph;
 
 public class GraphException extends RuntimeException{
 
@@ -27,5 +28,13 @@ public class GraphException extends RuntimeException{
 	
 	public GraphException(Digraph g) {
 		throw new IllegalArgumentException("Grafo nulo");
+	}
+	
+	public GraphException(EdgeWeightedGraph g) {
+		throw new IllegalArgumentException("Grafo nulo");
+	}
+	
+	public GraphException(double weight) {
+		throw new IllegalArgumentException("Peso no es un numero");
 	}
 }

@@ -211,5 +211,11 @@ class Maze {
 			}
 		}
 	}
+	
+	public static void main(String[] args) {
+		Maze m = new Maze(15);
+		m.draw();
+		new MazeSolver(m);
+	}
 
 }
