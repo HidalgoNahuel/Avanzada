@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import graph.Edge;
+
 public class MinPQ<T> implements Iterable<T>{
 
 	private T[] pq;
@@ -42,6 +44,16 @@ public class MinPQ<T> implements Iterable<T>{
 	
 	public boolean isEmpty() {
 		return n == 0;
+	}
+	
+	public boolean contains(T t) {
+		if(isEmpty())
+			return false;
+		for(T e : pq) {
+			if(e != null && e.equals(t))
+				return true;
+		}
+		return false;
 	}
 	
 	public int size() {
