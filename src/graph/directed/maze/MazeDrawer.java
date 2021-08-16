@@ -1,24 +1,30 @@
 package graph.directed.maze;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MazeDrawer {
 
-	private final int size;
+	private static final int size = 500;
+	private final int space;
+	private final int n;
 	private JFrame maze;
 	private final String name;
 	
 	public static void main(String[] args) {
-		new MazeDrawer(10, "Prim");
+		new MazeDrawer(25, "Prim");
 	}
 	
-	public MazeDrawer(int size, String name) {
+	public MazeDrawer(int n, String name) {
 		this.name = name;
-		this.size = size*100;
+		this.space = size/n;
+		this.n = n;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -34,28 +40,34 @@ public class MazeDrawer {
 	@SuppressWarnings("serial")
 	private void initialize() {
 		maze = new JFrame(name);
-		maze.setSize(size+17, size+40);
+		maze.setSize(size + 10, size + 10 + 30);
 		maze.setTitle(name);
 		maze.setLocationRelativeTo(null);
+		maze.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		maze.getContentPane().setLayout(null);
 		
 		JPanel grid = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				g.drawLine(5, 5, size-5,5);
-				g.drawLine(5, 5, 5, size-5);
-				g.drawLine(size-5, 5, size-5, size-5);
-				g.drawLine(5, size-5, size-5, size-5);
-				for (int i = 10; i < size-5; i+=10) {
-					g.drawLine(i*10, 5, i*10, size-5);
-				}
-				for (int j = 10; j < size-5; j+=10) {
-					g.drawLine(5, j*10, size-5, j*10);
+				g.setColor(Color.black);
+				for(int i = 0; i < n; i++) {
+					for(int j = 0; j < n; j++) {
+						g.drawRect(5 + space * j, 5 + space * i, space, space);
+					}
 				}
 			}
 		};
-		grid.setSize(size, size);
+		grid.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int x = e.getX()/space, y = e.getY()/space;
+				Graphics g = grid.getGraphics().create();
+				g.clearRect(5 + space * x, 5 + space * y, space, space);
+			}
+		});
+		grid.setSize(10 + size, size+10);
+		grid.setBackground(Color.gray);
 		maze.getContentPane().add(grid);
 	}
 }

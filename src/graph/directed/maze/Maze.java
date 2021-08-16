@@ -39,7 +39,7 @@ public class Maze {
 
 	private void initialize() {
 		maze = new JFrame();
-		maze.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Nahuel-Nico\\git\\Avanzada\\src\\graph\\directed\\maze\\thumb-1920-691524.jpg"));
+		maze.setIconImage(new ImageIcon(getClass().getResource("maze.jpg")).getImage());
 		maze.setResizable(false);
 		maze.setTitle("Maze Generator");
 		maze.setSize(500,313);
@@ -89,14 +89,14 @@ public class Maze {
 		JLabel tittle = new JLabel("Maze Generator");
 		tittle.setForeground(Color.WHITE);
 		tittle.setBounds(158, 40, 161, 30);
-		tittle.setFont(new Font("Tahoma", Font.BOLD, 20));
-		tittle.setHorizontalAlignment(SwingConstants.LEFT);
+		tittle.setFont(new Font("Tahoma", Font.BOLD, 16));
+		tittle.setHorizontalAlignment(SwingConstants.CENTER);
 		maze.getContentPane().add(tittle);
 		
 		JLabel background = new JLabel("");
 		background.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		background.setForeground(new Color(255, 255, 255));
-		background.setIcon(new ImageIcon("C:\\Users\\Nahuel-Nico\\git\\Avanzada\\src\\graph\\directed\\maze\\Webp.net-resizeimage (1).jpg"));
+		background.setIcon(new ImageIcon(getClass().getResource("background.jpg")));
 		background.setBounds(0, 0, 494, 284);
 		background.setHorizontalAlignment(SwingConstants.RIGHT);
 		maze.getContentPane().add(background);
